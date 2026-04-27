@@ -26,6 +26,26 @@ spec:
       containers:
       - name: mongodb
         image: vineethk08/mongodb:1.0.0
+---
+apiVersion: v1
+kind: Service
+metadaata:
+  name: mongodb
+  labels:
+    project: roboshop
+    environment: dev
+    tier: database
+    component: mongodb
+spec:
+  selector:
+    project: roboshop
+    environment: dev
+    tier: database
+    component: mongodb
+  ports:
+  - protocol: TCP
+    port: 27017
+    targetPort: 27017
 
 
 
