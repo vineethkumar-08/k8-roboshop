@@ -10,7 +10,7 @@ metadata:
     component: user
 data:
   REDIS_URL: "redis://redis:6379"
-  MONGO_URL: "mongodb://mongodb:2707/user"
+  MONGO_URL: "mongodb://mongodb:2707/users"
   MONGO: "true"
 # labels are important
 
