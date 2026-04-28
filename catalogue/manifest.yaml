@@ -42,7 +42,7 @@ spec:
       containers:
       - name: catalogue
         image: vineethk08/catalogue:1.4.0
-        imagrPullPolicy: Always # safe to pull images everytime, there may be images with same versions rebuild and pushed
+        imagePullPolicy: Always # safe to pull images everytime, there may be images with same versions rebuild and pushed
         resources:
           requests:
             cpu: "100m"
