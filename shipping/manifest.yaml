@@ -1,28 +1,27 @@
 apiVersion: v1
 kind: ConfigMap
-metadata:
+metadata: 
+  name: shipping
   namespace: roboshop
-  name: catalogue
-  labels:
+  labels: 
     project: roboshop
     environment: dev
     tier: backend
-    component: catalogue
+    component: shipping  
 data:
-  MONGO: "true"
-  MONGO_URL: "mongodb://mongodb:27017/catalogue"
-
+  CART_ENDPOINT: "cart:8080"
+  DB_HOST: "mysql"
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: shipping
   namespace: roboshop
-  name: catalogue
   labels:
     project: roboshop
     environment: dev
     tier: backend
-    component: catalogue
+    component: shipping  
 spec:
   replicas: 1
   selector:
@@ -30,19 +29,20 @@ spec:
       project: roboshop
       environment: dev
       tier: backend
-      component: catalogue
+      component: shipping  
+
   template:
     metadata:
       labels:
         project: roboshop
         environment: dev
         tier: backend
-        component: catalogue
+        component: shipping 
     spec:
       containers:
-      - name: catalogue
-        image: vineethk08/catalogue:1.4.0
-        imagePullPolicy: Always # safe to pull images everytime, there may be images with same versions rebuild and pushed
+      - name: shipping
+        image: vineethk08/shipping:1.4.0
+        imagePullPolicy: Always
         resources:
           requests:
             cpu: "100m"
@@ -50,16 +50,18 @@ spec:
           limits:
             cpu: "100m"
             memory: "128Mi"
-        # Health check is mandatory 
         readinessProbe:
-          # httpGet:
-           # path: /health
-           # port: 8080
           tcpSocket:
             port: 8080
           failureThreshold: 2
-          periodSeconds: 10 
-          initialDelaySeconds: 5
+          periodSeconds: 10
+          initialDelaySeconds: 15
+        startupProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          failureThreshold: 20
+          periodSeconds: 10
         livenessProbe:
           httpGet:
             path: /health
@@ -68,29 +70,37 @@ spec:
           periodSeconds: 10       
         envFrom:
         - configMapRef:
-            name: catalogue
+            name: shipping
 ---
 apiVersion: v1
 kind: Service
 metadata:
   namespace: roboshop
-  name: catalogue
+  name: shipping
   labels:
     project: roboshop
     environment: dev
     tier: backend
-    component: catalogue
+    component: shipping
 spec:
   selector:
     project: roboshop
     environment: dev
     tier: backend
-    component: catalogue
+    component: shipping
   ports:
   - protocol: TCP
     port: 8080
     targetPort: 8080
   
+
+
+
+
+
+
+
+
 
 
 
