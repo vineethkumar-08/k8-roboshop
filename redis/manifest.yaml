@@ -15,7 +15,7 @@ spec:
       project: roboshop
       environment: dev
       tier: database
-      component: rediss
+      component: redis
   template:
     metadata:
       labels:
