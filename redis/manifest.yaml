@@ -9,13 +9,13 @@ metadata:
     tier: database
     component: redis
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       project: roboshop
       environment: dev
       tier: database
-      component: redis
+      component: rediss
   template:
     metadata:
       labels:
