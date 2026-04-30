@@ -38,13 +38,13 @@ spec:
         environment: dev
         tier: database
         component: rabbitmq
-        envFrom:
-        - configMapRef:
-          name: rabbitmq
     spec:
       containers:
       - name: rabbitmq
         image: vineethk08/rabbitmq:3
+        envFrom:
+        - configMapRef:
+          name: rabbitmq
 ---
 apiVersion: v1
 kind: Service
