@@ -38,7 +38,7 @@ spec:
         environment: dev
         tier: database
         component: rabbitmq
-        env:
+        envFrom:
         - configMapRef:
           name: rabbitmq
     spec:
