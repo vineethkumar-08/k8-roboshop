@@ -6,4 +6,4 @@ metadata:
 spec: 
   containers:
   - name: debug
-    image: vineethk08/debug:1.4.1
+    image: vineethk08/debug:1.4.0

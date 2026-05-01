@@ -49,7 +49,7 @@ spec:
     spec:
       containers:
       - name: payment
-        image: joindevops/payment:1.4.1
+        image: joindevops/payment:1.4.0
         imagePullPolicy: Always # safe to pull everytime, there may be images with same version rebuilt and pushed
         resources:
           requests:

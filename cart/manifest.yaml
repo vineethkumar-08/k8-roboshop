@@ -43,7 +43,7 @@ spec:
     spec:
       containers:
       - name: cart
-        image: vineethk08/cart:1.4.1
+        image: vineethk08/cart:1.4.0
         imagePullPolicy: Always
         resources:
           requests:
