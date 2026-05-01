@@ -22,7 +22,7 @@ metadata:
     project: roboshop
     environment: dev
     tier: backend
-    component: shippingg
+    component: shipping
 spec:
   replicas: 1
   selector:
