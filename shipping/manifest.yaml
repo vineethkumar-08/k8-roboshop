@@ -29,6 +29,7 @@ spec:
     # using these labels replica set selects the pod
     matchLabels:
       project: roboshop
+      environment: dev
       tier: backend
       component: shipping
   # This is pod definition, pod is subset of replicaset
