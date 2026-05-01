@@ -5,6 +5,7 @@ metadata:
   namespace: roboshop
   labels:
     project: roboshop
+    environment: dev
     tier: backend
     component: shipping
 data:
@@ -19,8 +20,9 @@ metadata:
   # these labels are replicaset labels
   labels:
     project: roboshop
+    environment: dev
     tier: backend
-    component: shipping
+    component: shippingg
 spec:
   replicas: 1
   selector:
@@ -34,6 +36,7 @@ spec:
     metadata:
       labels:
         project: roboshop
+        environment: dev
         tier: backend
         component: shipping
     spec:
@@ -80,12 +83,14 @@ metadata:
   namespace: roboshop
   labels:
     project: roboshop
+    environment: dev
     tier: backend
     component: shipping
 spec:
   selector:
     # labels are used as selectors
     project: roboshop
+    environment: dev
     tier: backend
     component: shipping
   ports:
