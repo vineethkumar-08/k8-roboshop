@@ -43,7 +43,7 @@ spec:
     spec:
       containers:
       - name: catalogue
-        image: joindevops/catalogue:1.4.0
+        image: joindevops/catalogue:1.4.1
         imagePullPolicy: Always # safe to pull everytime, there may be images with same version rebuilt and pushed
         resources:
           requests:

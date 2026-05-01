@@ -43,7 +43,7 @@ spec:
     spec:
       containers:
       - name: user
-        image: vineethk08/user:1.4.0
+        image: vineethk08/user:1.4.1
         imagePullPolicy: Always
         resources:
           requests:
