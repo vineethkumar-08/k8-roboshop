@@ -12,14 +12,13 @@ data:
   REDIS_URL: "redis://redis:6379"
   MONGO_URL: "mongodb://mongodb:27017/users"
   MONGO: "true"
-# labels are important
-
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: user
   namespace: roboshop
+  # these labels are replicaset labels
   labels:
     project: roboshop
     environment: dev
@@ -28,11 +27,13 @@ metadata:
 spec:
   replicas: 1
   selector:
+    # using these labels replica set selects the pod
     matchLabels:
       project: roboshop
       environment: dev
       tier: backend
       component: user
+  # This is pod definition, pod is subset of replicaset
   template:
     metadata:
       labels:
@@ -43,8 +44,8 @@ spec:
     spec:
       containers:
       - name: user
-        image: vineethk08/user:1.4.0
-        imagePullPolicy: Always
+        image: joindevops/user:1.4.0
+        imagePullPolicy: Always # safe to pull everytime, there may be images with same version rebuilt and pushed
         resources:
           requests:
             cpu: "100m"
@@ -53,13 +54,16 @@ spec:
             cpu: "100m"
             memory: "128Mi"
         readinessProbe:
+          # httpGet:
+          #   path: /health
+          #   port: 8080
           tcpSocket:
             port: 8080
           failureThreshold: 2
           periodSeconds: 10
-          initialDelaySeconds: 10
-        livenessProbe: 
-          httpGet: 
+          initialDelaySeconds: 15
+        livenessProbe:
+          httpGet:
             path: /health
             port: 8080
           failureThreshold: 2
@@ -71,24 +75,21 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: roboshop
   name: user
+  namespace: roboshop
   labels:
     project: roboshop
     environment: dev
     tier: backend
     component: user
-spec: 
+spec:
   selector:
-      project: roboshop
-      environment: dev
-      tier: backend
-      component: user
+    # labels are used as selectors
+    project: roboshop
+    environment: dev
+    tier: backend
+    component: user
   ports:
   - protocol: TCP
-    port: 8080
-    targetPort: 8080
-      
-
-      
-
+    port: 8080 # servie port
+    targetPort: 8080 # container port
